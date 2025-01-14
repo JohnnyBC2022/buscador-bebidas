@@ -7,11 +7,11 @@ export default function Header() {
 
   const isHome = useMemo(() => pathname === "/", [pathname]);
   return (
-    <header className="bg-zinc-800">
+    <header className={isHome ? "bg-header bg-cover bg-center bg-no-repeat" :"bg-zinc-800"}>
       <div className="mx-auto container px-5 py-16">
         <div className="flex justify-between items-center">
           <div>
-            <img className="w-32" src="/logo.png" alt="logotipo" />
+            <img className="w-48" src="/logo.png" alt="logotipo" />
           </div>
 
           <nav className="flex gap-4">
@@ -19,8 +19,8 @@ export default function Header() {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "text-rose-500 uppercase font-bold"
-                  : "text-white uppercase font-bold"
+                  ? "text-rose-500 uppercase font-bold text-2xl"
+                  : "text-white uppercase font-bold text-2xl"
               }
             >
               Inicio
@@ -29,8 +29,8 @@ export default function Header() {
               to="/favoritos"
               className={({ isActive }) =>
                 isActive
-                  ? "text-rose-500 uppercase font-bold"
-                  : "text-white uppercase font-bold"
+                  ? "text-rose-500 uppercase font-bold text-2xl"
+                  : "text-white uppercase font-bold text-2xl"
               }
             >
               Favoritos
