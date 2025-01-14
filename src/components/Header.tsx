@@ -1,8 +1,11 @@
+import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import RecipeForm from "./RecipeForm";
 
 export default function Header() {
-  const {pathname} = useLocation();
-  console.log(pathname);
+  const { pathname } = useLocation();
+
+  const isHome = useMemo(() => pathname === "/", [pathname]);
   return (
     <header className="bg-zinc-800">
       <div className="mx-auto container px-5 py-16">
@@ -16,7 +19,7 @@ export default function Header() {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "text-pink-500 uppercase font-bold"
+                  ? "text-rose-500 uppercase font-bold"
                   : "text-white uppercase font-bold"
               }
             >
@@ -26,7 +29,7 @@ export default function Header() {
               to="/favoritos"
               className={({ isActive }) =>
                 isActive
-                  ? "text-fuchsia-500 uppercase font-bold"
+                  ? "text-rose-500 uppercase font-bold"
                   : "text-white uppercase font-bold"
               }
             >
@@ -34,6 +37,9 @@ export default function Header() {
             </NavLink>
           </nav>
         </div>
+        {isHome && (
+          <RecipeForm/>
+        )}
       </div>
     </header>
   );
