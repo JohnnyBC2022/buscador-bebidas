@@ -88,6 +88,23 @@ export default function RecipeModal() {
                       ? selectedRecipe.strInstructionsES
                       : selectedRecipe.strInstructions}
                   </p>
+
+                  <div className="flex justify-between gap-4 mt-5">
+                    <button
+                        type="button"
+                        className="w-full p-3 font-bold text-white uppercase bg-gray-600 rounded shadow hover:bg-gray-500"
+                        onClick={closeModal}
+                    >
+                        Cerrar
+                    </button>
+                    <button
+                        type="button"
+                        className="w-full p-3 font-bold text-white uppercase rounded shadow bg-rose-400 hover:bg-rose-500"
+                        onClick={()=>{}}
+                    >
+                        Añadir a Favoritos
+                    </button>
+                  </div>
                 </DialogPanel>
               </TransitionChild>
             </div>
