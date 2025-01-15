@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function RecipeForm() {
@@ -9,6 +9,7 @@ export default function RecipeForm() {
   
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories);
+  const searchRecipes = useAppStore((state) => state.searchRecipes);
 
   useEffect(() => {
     fetchCategories();
@@ -20,9 +21,23 @@ export default function RecipeForm() {
       [e.target.name] : e.target.value
     })
   }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    
+    // TODO: validar
+    if(Object.values(searchFilters).includes('')){
+      console.log('Todos los campos son obligatorios')
+      return
+    }
+    
+    // Consultar las recetas
+    searchRecipes(searchFilters)
+  }
   
   return (
-    <form className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400">
+    <form className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400"
+    onSubmit={handleSubmit}>
       <div className="space-y-4">
         <label
           htmlFor="ingredient"
