@@ -1,10 +1,11 @@
 import { StateCreator } from "zustand"
 import { getCategories, getRecipeById, getRecipes } from "../services/RecipeService"
-import type { Categories, Drink, Drinks, SearchFilter } from "../types"
+import type { Categories, Drink, Drinks, Recipe, SearchFilter } from "../types"
 
 export type RecipesSliceType = {
     categories: Categories
     drinks: Drinks
+    selectedRecipe: Recipe
     fetchCategories: () => Promise<void>
     searchRecipes: (searchFilter: SearchFilter) => Promise<void>
     selectRecipe: (id: Drink['idDrink']) => Promise<void>
@@ -17,6 +18,9 @@ export const createRecipesSlice: StateCreator<RecipesSliceType> = (set) => ({
     drinks: {
         drinks: []
     },
+    selectedRecipe: {
+
+    } as Recipe, //para no tener que añadir toda la estructura como en el RecipeApiResponseSchema con strings vacíos
     fetchCategories: async () => {
         const categories = await getCategories()
         set({
@@ -31,6 +35,6 @@ export const createRecipesSlice: StateCreator<RecipesSliceType> = (set) => ({
     },
     selectRecipe: async (id) => {
         const selectedRecipe = await getRecipeById(id)
-        console.log(selectedRecipe)
+        set({selectedRecipe})
     }
 })
