@@ -102,7 +102,8 @@ export default function RecipeModal() {
                     <button
                         type="button"
                         className="w-full p-3 font-bold text-white uppercase rounded shadow bg-rose-400 hover:bg-rose-500"
-                        onClick={()=>handleClickFavorite(selectedRecipe)}
+                        onClick={()=>{
+                          handleClickFavorite(selectedRecipe)}}
                     >
                         {favoriteExists(selectedRecipe.idDrink) ?"Eliminar de Favoritos" : "Añadir a Favoritos"}
                     </button>
