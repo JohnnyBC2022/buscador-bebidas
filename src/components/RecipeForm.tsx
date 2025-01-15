@@ -3,16 +3,17 @@ import { useAppStore } from "../stores/useAppStore";
 
 export default function RecipeForm() {
   const fetchCategories = useAppStore((state) => state.fetchCategories);
+  const categories = useAppStore((state) => state.categories);
 
   useEffect(() => {
     fetchCategories()
   }, []);
   return (
-    <form className="md:w-1/2 2xl:w-1/3 bg-rose-400 my-32 p-10 rounded-lg shadow space-y-6">
+    <form className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400">
       <div className="space-y-4">
         <label
           htmlFor="ingredient"
-          className="block text-white uppercase font-extrabold text-lg"
+          className="block text-lg font-extrabold text-white uppercase"
         >
           Nombre o Ingredientes
         </label>
@@ -21,14 +22,14 @@ export default function RecipeForm() {
           id="ingredient"
           type="text"
           name="ingredient"
-          className="p-3 w-full rounded-lg focus:outline-none"
+          className="w-full p-3 rounded-lg focus:outline-none"
           placeholder="Nombre o Ingrediente: Ej. Vodka, Tequila, "
         />
       </div>
       <div className="space-y-4">
         <label
           htmlFor="category"
-          className="block text-white uppercase font-extrabold text-lg"
+          className="block text-lg font-extrabold text-white uppercase"
         >
           Categoría
         </label>
@@ -36,15 +37,23 @@ export default function RecipeForm() {
         <select
           id="category"
           name="category"
-          className="p-3 w-full rounded-lg focus:outline-none"
+          className="w-full p-3 rounded-lg focus:outline-none"
         >
           <option value="">-- Selecciona --</option>
+          {categories.drinks.map(category =>(
+            <option 
+            value={category.strCategory}
+            key={category.strCategory}
+            >
+              {category.strCategory}
+            </option>
+          ))}
         </select>
       </div>
       <input
         type="submit"
         value="Buscar Receta"
-        className="cursor-pointer bg-rose-800 hover:bg-rose-900 text-white font-extrabold w-full rounded-lg p-2 uppercase"
+        className="w-full p-2 font-extrabold text-white uppercase rounded-lg cursor-pointer bg-rose-800 hover:bg-rose-900"
       />
     </form>
   );
