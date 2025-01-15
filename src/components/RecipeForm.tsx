@@ -1,13 +1,26 @@
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useAppStore } from "../stores/useAppStore";
 
 export default function RecipeForm() {
+  const [searchFilters, setSearchFilters] = useState({
+    ingredient: '',
+    category: ''
+  })
+  
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories);
 
   useEffect(() => {
-    fetchCategories()
+    fetchCategories();
   }, []);
+  
+  const handleChange = (e:ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
+    setSearchFilters({
+      ...searchFilters,
+      [e.target.name] : e.target.value
+    })
+  }
+  
   return (
     <form className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400">
       <div className="space-y-4">
@@ -24,6 +37,8 @@ export default function RecipeForm() {
           name="ingredient"
           className="w-full p-3 rounded-lg focus:outline-none"
           placeholder="Nombre o Ingrediente: Ej. Vodka, Tequila, "
+          onChange={handleChange}
+          value={searchFilters.ingredient}
         />
       </div>
       <div className="space-y-4">
@@ -38,13 +53,12 @@ export default function RecipeForm() {
           id="category"
           name="category"
           className="w-full p-3 rounded-lg focus:outline-none"
+          onChange={handleChange}
+          value={searchFilters.category}
         >
           <option value="">-- Selecciona --</option>
-          {categories.drinks.map(category =>(
-            <option 
-            value={category.strCategory}
-            key={category.strCategory}
-            >
+          {categories.drinks.map((category) => (
+            <option value={category.strCategory} key={category.strCategory}>
               {category.strCategory}
             </option>
           ))}
