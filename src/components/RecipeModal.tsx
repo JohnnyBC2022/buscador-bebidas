@@ -7,10 +7,30 @@ import {
 } from "@headlessui/react";
 import { Fragment } from "react";
 import { useAppStore } from "../stores/useAppStore";
+import { Recipe } from "../types";
 
 export default function RecipeModal() {
   const modal = useAppStore((state) => state.modal);
   const closeModal = useAppStore((state) => state.closeModal);
+  const selectedRecipe = useAppStore((state) => state.selectedRecipe);
+
+    const renderIngredients = ()=>{
+        const ingredients : JSX.Element[]= []
+        for(let i = 1; i <= 15; i++){
+            const ingredient = selectedRecipe[`strIngredient${i}` as keyof Recipe]
+            const measure = selectedRecipe[`strMeasure${i}` as keyof Recipe]
+            
+            if(ingredient && measure) {
+                ingredients.push(
+                    <li key={i} className="text-lg font-normal">
+                        {ingredient} - {measure}
+                    </li>
+                )
+            }
+        }
+      return  ingredients
+    }
+  
   return (
     <>
       <Transition appear show={modal} as={Fragment}>
@@ -43,20 +63,31 @@ export default function RecipeModal() {
                     as="h3"
                     className="my-5 text-4xl font-extrabold text-center text-gray-900"
                   >
-                    Titulo Aquí
+                    {selectedRecipe.strDrink}
                   </DialogTitle>
+                  <img
+                    src={selectedRecipe.strDrinkThumb}
+                    alt={`Imágen de ${selectedRecipe.strDrink}`}
+                    className="mx-auto w-96"
+                  />
                   <DialogTitle
                     as="h3"
                     className="my-5 text-2xl font-extrabold text-gray-900"
                   >
                     Ingredientes y Cantidades
                   </DialogTitle>
+                  {renderIngredients()}
                   <DialogTitle
                     as="h3"
                     className="my-5 text-2xl font-extrabold text-gray-900"
                   >
                     Instrucciones
                   </DialogTitle>
+                  <p className="text-lg">
+                    {selectedRecipe.strInstructionsES
+                      ? selectedRecipe.strInstructionsES
+                      : selectedRecipe.strInstructions}
+                  </p>
                 </DialogPanel>
               </TransitionChild>
             </div>
