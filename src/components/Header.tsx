@@ -6,10 +6,11 @@ export default function Header() {
   const { pathname } = useLocation();
 
   const isHome = useMemo(() => pathname === "/", [pathname]);
+  
   return (
     <header className={isHome ? "bg-header bg-cover bg-center bg-no-repeat" :"bg-zinc-800"}>
-      <div className="mx-auto container px-5 py-16">
-        <div className="flex justify-between items-center">
+      <div className="container px-5 py-16 mx-auto">
+        <div className="flex items-center justify-between">
           <div>
             <img className="w-48" src="/logo.png" alt="logotipo" />
           </div>

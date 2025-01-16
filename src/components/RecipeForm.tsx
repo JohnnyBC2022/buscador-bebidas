@@ -3,41 +3,48 @@ import { useAppStore } from "../stores/useAppStore";
 
 export default function RecipeForm() {
   const [searchFilters, setSearchFilters] = useState({
-    ingredient: '',
-    category: ''
-  })
-  
+    ingredient: "",
+    category: "",
+  });
+
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories);
   const searchRecipes = useAppStore((state) => state.searchRecipes);
+  const showNotification = useAppStore((state) => state.showNotification);
 
   useEffect(() => {
     fetchCategories();
   }, []);
-  
-  const handleChange = (e:ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
     setSearchFilters({
       ...searchFilters,
-      [e.target.name] : e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>)=>{
-    e.preventDefault()
-    
-    // TODO: validar
-    if(Object.values(searchFilters).includes('')){
-      console.log('Todos los campos son obligatorios')
-      return
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (Object.values(searchFilters).includes("")) {
+      showNotification({
+        text: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
     }
-    
+
     // Consultar las recetas
-    searchRecipes(searchFilters)
-  }
-  
+    searchRecipes(searchFilters);
+  };
+
   return (
-    <form className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400"
-    onSubmit={handleSubmit}>
+    <form
+      className="p-10 my-32 space-y-6 rounded-lg shadow md:w-1/2 2xl:w-1/3 bg-rose-400"
+      onSubmit={handleSubmit}
+    >
       <div className="space-y-4">
         <label
           htmlFor="ingredient"
