@@ -38,6 +38,11 @@ export default function RecipeForm() {
 
     // Consultar las recetas
     searchRecipes(searchFilters);
+    // Limpiar el formulario
+    setSearchFilters({
+      ingredient: "",
+      category: "",
+    });
   };
 
   return (
