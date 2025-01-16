@@ -16,23 +16,23 @@ export default function RecipeModal() {
   const handleClickFavorite = useAppStore((state) => state.handleClickFavorite);
   const favoriteExists = useAppStore((state) => state.favoriteExists);
 
-    const renderIngredients = ()=>{
-        const ingredients : JSX.Element[]= []
-        for(let i = 1; i <= 15; i++){
-            const ingredient = selectedRecipe[`strIngredient${i}` as keyof Recipe]
-            const measure = selectedRecipe[`strMeasure${i}` as keyof Recipe]
-            
-            if(ingredient && measure) {
-                ingredients.push(
-                    <li key={i} className="text-lg font-normal">
-                        {ingredient} - {measure}
-                    </li>
-                )
-            }
-        }
-      return  ingredients
+  const renderIngredients = () => {
+    const ingredients: JSX.Element[] = [];
+    for (let i = 1; i <= 15; i++) {
+      const ingredient = selectedRecipe[`strIngredient${i}` as keyof Recipe];
+      const measure = selectedRecipe[`strMeasure${i}` as keyof Recipe];
+
+      if (ingredient && measure) {
+        ingredients.push(
+          <li key={i} className="text-lg font-normal list-none">
+            {ingredient} - {measure}
+          </li>
+        );
+      }
     }
-  
+    return ingredients;
+  };
+
   return (
     <>
       <Transition appear show={modal} as={Fragment}>
@@ -70,7 +70,7 @@ export default function RecipeModal() {
                   <img
                     src={selectedRecipe.strDrinkThumb}
                     alt={`Imágen de ${selectedRecipe.strDrink}`}
-                    className="mx-auto w-96"
+                    className="mx-auto border-4 border-black w-96"
                   />
                   <DialogTitle
                     as="h3"
@@ -93,19 +93,22 @@ export default function RecipeModal() {
 
                   <div className="flex justify-between gap-4 mt-5">
                     <button
-                        type="button"
-                        className="w-full p-3 font-bold text-white uppercase bg-gray-600 rounded shadow hover:bg-gray-500"
-                        onClick={closeModal}
+                      type="button"
+                      className="w-full p-3 font-bold text-white uppercase bg-gray-600 rounded shadow hover:bg-gray-500"
+                      onClick={closeModal}
                     >
-                        Cerrar
+                      Cerrar
                     </button>
                     <button
-                        type="button"
-                        className="w-full p-3 font-bold text-white uppercase rounded shadow bg-rose-400 hover:bg-rose-500"
-                        onClick={()=>{
-                          handleClickFavorite(selectedRecipe)}}
+                      type="button"
+                      className="w-full p-3 font-bold text-white uppercase rounded shadow bg-rose-400 hover:bg-rose-500"
+                      onClick={() => {
+                        handleClickFavorite(selectedRecipe);
+                      }}
                     >
-                        {favoriteExists(selectedRecipe.idDrink) ?"Eliminar de Favoritos" : "Añadir a Favoritos"}
+                      {favoriteExists(selectedRecipe.idDrink)
+                        ? "Eliminar de Favoritos"
+                        : "Añadir a Favoritos"}
                     </button>
                   </div>
                 </DialogPanel>

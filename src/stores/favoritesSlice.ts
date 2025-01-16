@@ -34,12 +34,12 @@ export const createFavoritesSlice: StateCreator<FavoritesSliceType & RecipesSlic
         createRecipesSlice(set, get, api).closeModal()
         localStorage.setItem('favorites', JSON.stringify(get().favorites))
     },
-    favoriteExists: (id) =>{
-        return get().favorites.some(favorite=> favorite.idDrink === id)
+    favoriteExists: (id) => {
+        return get().favorites.some(favorite => favorite.idDrink === id)
     },
     loadFromStorage: () => {
         const storedFavorites = localStorage.getItem('favorites')
-        if(storedFavorites) {
+        if (storedFavorites) {
             set({
                 favorites: JSON.parse(storedFavorites)
             })

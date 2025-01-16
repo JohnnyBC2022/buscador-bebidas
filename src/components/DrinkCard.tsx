@@ -8,12 +8,12 @@ type DrinkCardProps = {
 export default function DrinkCard({ drink }: DrinkCardProps) {
   const selectRecipe = useAppStore((state) => state.selectRecipe);
   return (
-    <article className="border shadow-lg">
+    <article className="border shadow-2xl">
       <div className="overflow-hidden">
         <img
           src={drink.strDrinkThumb}
           alt={`Imágen de ${drink.strDrink}`}
-          className="transition-transform hover:scale-125 hover:rotate-2 "
+          className="transition-transform hover:scale-125 hover:rotate-2"
         />
       </div>
       <div className="p-5">

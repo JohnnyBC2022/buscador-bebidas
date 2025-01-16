@@ -6,9 +6,13 @@ export default function Header() {
   const { pathname } = useLocation();
 
   const isHome = useMemo(() => pathname === "/", [pathname]);
-  
+
   return (
-    <header className={isHome ? "bg-header bg-cover bg-center bg-no-repeat" :"bg-zinc-800"}>
+    <header
+      className={
+        isHome ? "bg-header bg-cover bg-center bg-no-repeat" : "bg-zinc-800"
+      }
+    >
       <div className="container px-5 py-16 mx-auto">
         <div className="flex items-center justify-between">
           <div>
@@ -38,9 +42,7 @@ export default function Header() {
             </NavLink>
           </nav>
         </div>
-        {isHome && (
-          <RecipeForm/>
-        )}
+        {isHome && <RecipeForm />}
       </div>
     </header>
   );
